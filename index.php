@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php
-require_once('API/SIST/SystemConstants.php');
-require_once('API/SIST/BaseDeDatos.php');
+require_once('API/ADMI/Tabla.php');
 ?>
 <html lang="en">
 <!-- Mirrored from www.urbanui.com/flare/template/ by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 31 Aug 2018 16:01:38 GMT -->
@@ -11,11 +10,13 @@ require_once('API/SIST/BaseDeDatos.php');
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title><?php echo(\SIST\SystemConstants::$SYSTEM_NAME); ?></title>
   <?php
-       $db = new \SIST\BaseDeDatos();
-       $db->EjecutarSentenciaINSERT("INSERT INTO `test`.`tabla` VALUES ('00001', 'Valor 001', 'Valor 002', 'Valor 003');");
-       $ResultSet = $db->EjecutarSentenciaSELECT("SELECT * FROM `test`.`tabla` WHERE `Id` = '00001';");
-       $db->EjecutarSentenciaUPDATE("UPDATE `test`.`tabla` SET `Campo01` = 'Nuevo Valor 01' WHERE `Id` = '00001';");
-       
+       $Tabla = new ADMI\Tabla();
+       $Tabla = $Tabla->GetNuevo();
+       $Tabla->Campo01 = "Texto 01";
+       $Tabla->Campo02 = "Texto 02";
+       $Tabla->Campo03 = "Texto 03";
+       if($Tabla->InsertRegistro($Tabla)) echo("INSERT correcto");
+       else echo("error en INSERT");
   ?>
   <!-- plugins:css -->
   <!-- LOS  ../ SON PORQUE METIMOS LAS PÁGINAS EN SUBCARPETAS-->
@@ -354,7 +355,7 @@ require_once('API/SIST/BaseDeDatos.php');
                   <div class="d-flex align-items-center">
                     <i class="icon-handbag icon-lg"></i>
                     <div class="ml-4">
-                      <h4 class="font-weight-light">Total invoices<?php print_r($ResultSet) ?></h4>
+                      <h4 class="font-weight-light">Total invoices</h4>
                       <h3 class="font-weight-light mb-3">75, 650</h3>
                       <p class="mb-0 font-weight-light">39% more growth </p>
                     </div>
